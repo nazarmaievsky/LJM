@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LJM — Lviv Junior Matchday</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --yellow: #D4F500;
+    --black: #0a0a0a;
+    --dark: #111111;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --text: #e8e8e8;
+    --muted: #888;
+    --accent: #D4F500;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero::before {
+    content: 'LJM';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(200px, 40vw, 500px);
+    color: #ffffff05;
+    bottom: -2rem;
+    right: -2rem;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--yellow);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 12vw, 140px);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: #fff;
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 span { color: var(--yellow); }
+
+  .hero-desc {
+    max-width: 540px;
+    font-size: 18px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-desc strong { color: var(--text); }
+
+  .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+  .btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.75rem;
+    border-radius: 2px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.15s ease;
+  }
+
+  .btn-primary {
+    background: var(--yellow);
+    color: var(--black);
+    border: 1px solid var(--yellow);
+  }
+  .btn-primary:hover { background: #fff; border-color: #fff; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--muted); }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 52px;
+    overflow-x: auto;
+  }
+
+  nav a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+  nav a:hover { color: var(--yellow); }
+  nav .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--yellow);
+    letter-spacing: 0.05em;
+    margin-right: 1rem;
+    flex-shrink: 0;
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  section {
+    padding: 5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--yellow);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 64px);
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+
+  h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--yellow);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 2.5rem 0 0.75rem;
+  }
+
+  p { color: var(--muted); margin-bottom: 1rem; max-width: 640px; }
+  p strong { color: var(--text); font-weight: 500; }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  .info-card {
+    background: var(--card);
+    padding: 1.5rem;
+  }
+
+  .info-card .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .info-card .label {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* FORMAT BLOCKS */
+  .format-block {
+    border-left: 2px solid var(--border);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    transition: border-color 0.2s;
+  }
+  .format-block:hover { border-color: var(--yellow); }
+  .format-block .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .format-block p { margin-bottom: 0; }
+
+  /* AUDIENCE TABS */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    border: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  .audience-panel {
+    background: var(--card);
+    padding: 1.5rem;
+  }
+
+  .audience-panel h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .audience-panel ul {
+    list-style: none;
+  }
+
+  .audience-panel ul li {
+    font-size: 14px;
+    color: var(--muted);
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .audience-panel ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--yellow);
+  }
+
+  /* FAIR PLAY */
+  .rules-list {
+    list-style: none;
+    margin: 1.5rem 0;
+  }
+
+  .rules-list li {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .rules-list li .rule-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--yellow);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 32px;
+  }
+
+  /* RISKS */
+  .risk-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+  }
+
+  .risk-item .risk-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--yellow);
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+    padding-top: 0.2rem;
+  }
+
+  .risk-item p { margin: 0; max-width: none; }
+
+  /* METRICS */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    border: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  .metric-item {
+    background: var(--card);
+    padding: 1.25rem 1.5rem;
+    font-size: 14px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .metric-item::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--yellow);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* CALCULATOR */
+  .calc-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 1.25rem;
+  }
+
+  .slider-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    width: 200px;
+    flex-shrink: 0;
+    letter-spacing: 0.03em;
+  }
+
+  input[type=range] {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 2px;
+    background: var(--border);
+    outline: none;
+    border-radius: 0;
+  }
+
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--yellow);
+    cursor: pointer;
+    border-radius: 0;
+  }
+
+  input[type=range]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: var(--yellow);
+    cursor: pointer;
+    border-radius: 0;
+    border: none;
+  }
+
+  .slider-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--yellow);
+    min-width: 70px;
+    text-align: right;
+  }
+
+  .price-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    border: 1px solid var(--border);
+    margin: 2rem 0 1.5rem;
+  }
+
+  .price-card {
+    background: var(--black);
+    padding: 1.25rem;
+  }
+
+  .price-card.best {
+    background: var(--dark);
+    border: 1px solid var(--yellow);
+  }
+
+  .price-card .pc-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .price-card .pc-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .price-card .pc-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .price-card .pc-unit {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .price-card .pc-extra {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .breakdown-box {
+    background: var(--black);
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 5px 0;
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .breakdown-row.total {
+    font-weight: 500;
+    color: var(--yellow);
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    margin-top: 5px;
+  }
+
+  .compare-note {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 1rem 1.25rem;
+    border-left: 2px solid var(--yellow);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.6;
+  }
+
+  /* UTR OPTIONS */
+  .utr-options { margin: 1.5rem 0; }
+
+  .utr-option {
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: start;
+    transition: border-color 0.2s;
+  }
+  .utr-option:hover { border-color: var(--muted); }
+  .utr-option.recommended { border-color: var(--yellow); }
+
+  .utr-option-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: #fff;
+    margin-bottom: 0.4rem;
+  }
+
+  .utr-option p { font-size: 13px; margin: 0; max-width: none; }
+
+  .utr-option-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--yellow);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  footer .footer-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+
+  footer .footer-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  footer .tg-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.15s;
+  }
+
+  footer .tg-btn:hover { background: #fff; }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  /* TAGS inline */
+  .tag-pill {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    background: #1e2a00;
+    color: var(--yellow);
+    border-radius: 2px;
+    margin-right: 6px;
+  }
+
+  /* STRATEGY TABLE */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    border: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  .strategy-cell {
+    background: var(--card);
+    padding: 1.25rem;
+  }
+
+  .strategy-cell .s-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .strategy-cell p { font-size: 14px; margin: 0; max-width: none; }
+
+  @media (max-width: 640px) {
+    .audience-grid, .price-cards, .strategy-grid { grid-template-columns: 1fr; }
+    .risk-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .slider-label { width: 140px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+    <div class="hero-tag">Players Only · Lviv · 2026</div>
+    <h1>Lviv<br><span>Junior</span><br>Matchday</h1>
+    <p class="hero-desc">Локальна тенісна спільнота для юніорів. <strong>Замість 500 км до рівного суперника — знаходиш його вдома.</strong> З рейтингом, аналітикою і без зайвого пафосу.</p>
+    <div class="cta-row">
+      <a href="https://t.me/+Y55Uze_i1XJkMmYy" class="btn btn-primary" target="_blank">Приєднатись →</a>
+      <a href="#concept" class="btn btn-outline">Читати концепцію</a>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <span class="logo">LJM</span>
+  <a href="#concept">Концепція</a>
+  <a href="#format">Формат</a>
+  <a href="#utr">UTR</a>
+  <a href="#fairplay">Fair Play</a>
+  <a href="#audience">Аудиторія</a>
+  <a href="#finance">Фінанси</a>
+  <a href="#risks">Ризики</a>
+</nav>
+
+<!-- CONCEPT -->
+<section id="concept">
+  <div class="container">
+    <div class="section-tag">01 — Що таке LJM</div>
+    <h2>Концепція</h2>
+    <p>Lviv Junior Matchday — це локальна тенісна спільнота Львова для юніорів із різних клубів і тренерів. Головна ідея проста: замість того щоб їхати 200–500 км на турнір 2-ї категорії заради однієї гри з рівним суперником, ти знаходиш такого суперника вдома.</p>
+    <p><strong>LJM це НЕ альтернатива офіційним турнірам ФТУ.</strong> Це доповнення, яке заповнює пробіл між тренуванням і змаганням: регулярна ігрова практика під тиском, з аналітикою, з рейтинговою системою без необхідності виїжджати з міста.</p>
+
+    <div class="cards-grid">
+      <div class="info-card">
+        <div class="num">1×1</div>
+        <div class="label">Формат матчу</div>
+      </div>
+      <div class="info-card">
+        <div class="num">8</div>
+        <div class="label">Учасників на старті</div>
+      </div>
+      <div class="info-card">
+        <div class="num">45'</div>
+        <div class="label">Timebox на матч</div>
+      </div>
+      <div class="info-card">
+        <div class="num">1×</div>
+        <div class="label">Офіційний Matchday на місяць</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMAT -->
+<section id="format">
+  <div class="container">
+    <div class="section-tag">02 — Як це працює</div>
+    <h2>Формат</h2>
+
+    <div class="format-block">
+      <div class="tag">Verified матч</div>
+      <p>Офіційний Matchday-ивент раз на місяць. До 8 учасників, підібраних за рівнем через UTR. Результат зараховується як підтверджений. Корти Євроспорт, запис через PerfectSwing, відеохайлайти тренеру.</p>
+    </div>
+
+    <div class="format-block">
+      <div class="tag">Unverified матч</div>
+      <p>Неофіційний спаринг у будь-який час між будь-якими двома гравцями спільноти. Результат фіксується в UTR зі статусом Unverified — рейтинг оновлюється, але з меншою вагою. Можна на будь-яких кортах міста.</p>
+    </div>
+
+    <h3>Майданчики</h3>
+    <p>Основний майданчик — корти <strong>Євроспорт</strong>, де для LJM виділені мертві години з <strong>10:00 до 16:00</strong> з понеділка по середу. LJM не прив'язаний жорстко до одного місця — Unverified матчі можна проводити на будь-яких доступних кортах міста.</p>
+
+    <h3>Дивізіони</h3>
+    <p>З ростом спільноти і розширенням рейтингової бази з'являється можливість поділу на дивізіони. Просунутий гравець не потрапляє на початківця — кожен рівень має власне конкурентне середовище.</p>
+  </div>
+</section>
+
+<!-- UTR -->
+<section id="utr">
+  <div class="container">
+    <div class="section-tag">03 — Рейтинг</div>
+    <h2>UTR</h2>
+
+    <p>UTR (Universal Tennis Rating) — математична система оцінки рівня гравця на основі реальних результатів матчів. Дозволяє зіставляти гравців з різних клубів і міст за єдиною шкалою.</p>
+    <p>У LJM UTR використовується як <strong>інструмент підбору суперника</strong>: гравець із рейтингом 6.00 грає з суперником у діапазоні 5.00–7.00. LJM не розділяє учасників за гендером — тільки за рівнем гри.</p>
+    <p><strong>Важливо:</strong> UTR — це не мета. Це дзеркало поточного рівня. Головна цінність — якість гри та ігровий досвід, а не цифра в профілі.</p>
+
+    <div class="format-block" style="margin-top: 2rem;">
+      <div class="tag">Як почати</div>
+      <p>Якщо ти вже грав на міжнародних турнірах — твій профіль в UTR вже існує. Достатньо знайти себе на <strong>utrsports.net</strong> і підтвердити. Якщо профілю ще немає — реєстрація займає кілька хвилин.</p>
+    </div>
+
+    <h3>Аналітика після матчу</h3>
+    <p>Після кожного Verified матчу гравець і тренер отримують відеохайлайти та базову статистику через <strong>PerfectSwing</strong> (також розглядається Swing Vision). Тренер отримує готову базу для наступних тренувань без власної присутності на матчі.</p>
+  </div>
+</section>
+
+<!-- FAIR PLAY -->
+<section id="fairplay">
+  <div class="container">
+    <div class="section-tag">04 — Правила</div>
+    <h2>Fair Play</h2>
+
+    <ul class="rules-list">
+      <li>
+        <span class="rule-num">01</span>
+        <span>Гравець оголошує рахунок голосно перед кожним розіграшем</span>
+      </li>
+      <li>
+        <span class="rule-num">02</span>
+        <span>При сумніві щодо лінії — м'яч зараховується суперникові</span>
+      </li>
+      <li>
+        <span class="rule-num">03</span>
+        <span>Апеляція до організатора тільки у випадку системного порушення, не поодинокого спірного моменту</span>
+      </li>
+      <li>
+        <span class="rule-num">04</span>
+        <span>Рукостискання після матчу — обов'язкове</span>
+      </li>
+    </ul>
+
+    <h3>Коучінг</h3>
+    <p>Тренер може давати поради під час стандартних changeover. <strong>Підказки під час розіграшів і між подаваннями — заборонені для всіх.</strong></p>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section id="audience">
+  <div class="container">
+    <div class="section-tag">05 — Для кого</div>
+    <h2>Аудиторія</h2>
+
+    <div class="audience-grid">
+      <div class="audience-panel">
+        <h4>Гравцям</h4>
+        <ul>
+          <li>Практика без далеких поїздок</li>
+          <li>Рівний суперник за UTR</li>
+          <li>Відеоаналіз своїх матчів</li>
+          <li>Фокус на грі, а не на результаті</li>
+        </ul>
+      </div>
+      <div class="audience-panel">
+        <h4>Тренерам</h4>
+        <ul>
+          <li>Аналітика без присутності на матчі</li>
+          <li>Готовий матеріал для тренувань</li>
+          <li>Реальний рівень учня в умовах тиску</li>
+          <li>LJM — інструмент, не конкурент</li>
+        </ul>
+      </div>
+      <div class="audience-panel">
+        <h4>Батькам</h4>
+        <ul>
+          <li>Прозорий підбір суперників</li>
+          <li>Менше витрат на поїздки</li>
+          <li>Зрозумілий прогрес через UTR</li>
+          <li>Свідомий і самостійний спортсмен</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Стратегія календаря</h3>
+    <div class="strategy-grid">
+      <div class="strategy-cell">
+        <div class="s-label">Категорія 1 і A</div>
+        <p>Їдемо завжди, незалежно від відстані. Це пріоритет.</p>
+      </div>
+      <div class="strategy-cell">
+        <div class="s-label">Категорія 2 поблизу</div>
+        <p>Їдемо якщо близько. Ігровий досвід виправдовує дорогу.</p>
+      </div>
+      <div class="strategy-cell">
+        <div class="s-label">Далеко і низька категорія</div>
+        <p>Замінюємо на LJM Verified Matchday з таким самим рівнем тиску.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINANCE -->
+<section id="finance">
+  <div class="container">
+    <div class="section-tag">06 — Фінанси</div>
+    <h2>Модель оплат</h2>
+
+    <p>Операційні витрати складаються з двох підписок і оренди кортів. Курс ~45 грн/$.</p>
+
+    <h3>Ліцензії UTR</h3>
+    <div class="utr-options">
+      <div class="utr-option recommended">
+        <div>
+          <div class="utr-option-title">Опція 1 — один майданчик · рекомендовано</div>
+          <p>Необмежена кількість ивентів. Верифіковані матчі можуть бути безкоштовними — вартість покривається членським внеском. Один внесок, нічого більше.</p>
+        </div>
+        <div class="utr-option-price">$1 380<br><span style="font-size:14px; color: var(--muted);">на рік</span></div>
+      </div>
+      <div class="utr-option">
+        <div>
+          <div class="utr-option-title">Опція 2 — один майданчик + комісія</div>
+          <p>Менший фіксований внесок. Але мінімальний збір $12.60 (~567 грн) з гравця за кожен ивент. Безкоштовні верифіковані матчі неможливі.</p>
+        </div>
+        <div class="utr-option-price">$480<br><span style="font-size:14px; color: var(--muted);">+ 10%</span></div>
+      </div>
+      <div class="utr-option">
+        <div>
+          <div class="utr-option-title">Опція 3 — вся Україна + комісія</div>
+          <p>Право проводити ивенти в будь-якому місті України. Стратегічна опція для виходу LJM за межі Львова.</p>
+        </div>
+        <div class="utr-option-price">$1 380<br><span style="font-size:14px; color: var(--muted);">+ 10%</span></div>
+      </div>
+    </div>
+
+    <h3>Інтерактивний калькулятор</h3>
+    <p>Змінюйте параметри — калькулятор покаже місячний внесок на учасника в реальному часі.</p>
+
+    <div class="calc-section">
+      <div class="slider-row">
+        <span class="slider-label">Учасників</span>
+        <input type="range" id="s-members" min="4" max="40" step="1" value="8">
+        <span class="slider-val" id="v-members">8</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">Івентів на рік</span>
+        <input type="range" id="s-events" min="1" max="36" step="1" value="12">
+        <span class="slider-val" id="v-events">12</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">Кортів на івент</span>
+        <input type="range" id="s-courts" min="1" max="8" step="1" value="4">
+        <span class="slider-val" id="v-courts">4</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">Годин на корт</span>
+        <input type="range" id="s-hours" min="1" max="8" step="1" value="4">
+        <span class="slider-val" id="v-hours">4</span>
+      </div>
+      <div class="slider-row">
+        <span class="slider-label">Ціна корту (грн/год)</span>
+        <input type="range" id="s-cprice" min="200" max="800" step="50" value="400">
+        <span class="slider-val" id="v-cprice">400 ₴</span>
+      </div>
+
+      <div class="price-cards">
+        <div class="price-card best">
+          <div class="pc-badge">★ Рекомендовано</div>
+          <div class="pc-title">Опція 1 · все включено</div>
+          <div class="pc-price" id="p1">—</div>
+          <div class="pc-unit">грн / міс на учасника</div>
+          <div class="pc-extra">Один внесок. Нічого більше.</div>
+        </div>
+        <div class="price-card">
+          <div class="pc-badge" style="color: var(--muted);">Опція 2</div>
+          <div class="pc-title">Фіксована частина</div>
+          <div class="pc-price" id="p2">—</div>
+          <div class="pc-unit">грн / міс на учасника</div>
+          <div class="pc-extra" id="extra2">+ збір за кожен івент</div>
+        </div>
+        <div class="price-card">
+          <div class="pc-badge" style="color: var(--muted);">Опція 3 · Україна</div>
+          <div class="pc-title">Фіксована частина</div>
+          <div class="pc-price" id="p3">—</div>
+          <div class="pc-unit">грн / міс на учасника</div>
+          <div class="pc-extra" id="extra3">+ збір за кожен івент</div>
+        </div>
+      </div>
+
+      <div class="breakdown-box">
+        <div class="breakdown-row"><span>UTR ліцензія (Опція 1)</span><span>62 100 ₴</span></div>
+        <div class="breakdown-row"><span>PerfectSwing</span><span>3 100 ₴</span></div>
+        <div class="breakdown-row"><span>Оренда кортів</span><span id="b-courts">—</span></div>
+        <div class="breakdown-row total"><span>Разом на рік</span><span id="b-total">—</span></div>
+      </div>
+
+      <div class="compare-note" id="compare-note"></div>
+    </div>
+
+    <h3>Наступний крок</h3>
+    <p>Логічним розвитком є реєстрація LJM як <strong>громадської організації</strong>. Це дозволить легально приймати членські внески та покривати операційні витрати з повною фінансовою прозорістю для всіх учасників.</p>
+  </div>
+</section>
+
+<!-- RISKS -->
+<section id="risks">
+  <div class="container">
+    <div class="section-tag">07 — Ризики</div>
+    <h2>Виклики</h2>
+
+    <div class="risk-item">
+      <div class="risk-label">Опір тренерів</div>
+      <p>Деякі тренери сприймають зовнішній проєкт як загрозу. Відповідь: аналітика матчів іде тренеру першому. Він має бачити LJM як свій інструмент, а не конкурента.</p>
+    </div>
+    <div class="risk-item">
+      <div class="risk-label">Фінансування на старті</div>
+      <p>Перший сезон фінансується батьками. Потрібна чітка комунікація: що входить у вартість і яка математика порівняно з поїздкою на іногородній турнір.</p>
+    </div>
+    <div class="risk-item">
+      <div class="risk-label">UTR-залежність</div>
+      <p>Ризик що гравці уникають сильніших суперників щоб не зіпсувати рейтинг. UTR — це дзеркало рівня, а не мета. Програш сильнішому — цінний досвід, а не провал.</p>
+    </div>
+    <div class="risk-item">
+      <div class="risk-label">Масштабування</div>
+      <p>З ростом кількості гравців потрібен прозорий механізм реєстрації на кожен Matchday. UTR-вікно вирішує підбір, але черга бажаючих вимагатиме окремої логіки.</p>
+    </div>
+
+    <h3>Метрики успіху — перший сезон</h3>
+    <div class="metrics-grid">
+      <div class="metric-item">Кількість активних учасників у спільноті</div>
+      <div class="metric-item">Приріст нових учасників щомісяця</div>
+      <div class="metric-item">Кількість Verified і Unverified матчів</div>
+      <div class="metric-item">Залученість тренерів — чи переглядають аналітику</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-title">Players Only</div>
+  <div class="footer-sub">Lviv Junior Matchday · 2025</div>
+  <a href="https://t.me/+Y55Uze_i1XJkMmYy" class="tg-btn" target="_blank">
+    Приєднатись до Telegram →
+  </a>
+</footer>
+
+<script>
+  const RATE = 45;
+  const UTR1 = Math.round(1380 * RATE);
+  const UTR2 = Math.round(480 * RATE);
+  const PERFECT = 3100;
+  const EVENT_FEE = Math.round(12.60 * RATE);
+
+  function fmt(n) {
+    return Math.round(n).toLocaleString('uk-UA') + ' ₴';
+  }
+
+  function calc() {
+    const members = +document.getElementById('s-members').value;
+    const events  = +document.getElementById('s-events').value;
+    const courts  = +document.getElementById('s-courts').value;
+    const hours   = +document.getElementById('s-hours').value;
+    const cprice  = +document.getElementById('s-cprice').value;
+
+    document.getElementById('v-members').textContent = members;
+    document.getElementById('v-events').textContent = events;
+    document.getElementById('v-courts').textContent = courts;
+    document.getElementById('v-hours').textContent = hours;
+    document.getElementById('v-cprice').textContent = cprice + ' ₴';
+
+    const courtYear = courts * hours * cprice * events;
+    const total1 = UTR1 + PERFECT + courtYear;
+
+    const monthly1 = total1 / 12 / members;
+    const monthly2 = (UTR2 + PERFECT + courtYear) / 12 / members;
+    const monthly3 = (UTR1 + PERFECT + courtYear) / 12 / members;
+
+    document.getElementById('p1').textContent = Math.round(monthly1).toLocaleString('uk-UA');
+    document.getElementById('p2').textContent = Math.round(monthly2).toLocaleString('uk-UA');
+    document.getElementById('p3').textContent = Math.round(monthly3).toLocaleString('uk-UA');
+
+    document.getElementById('extra2').textContent = '+ ' + EVENT_FEE.toLocaleString('uk-UA') + ' ₴ за верифікований івент';
+    document.getElementById('extra3').textContent = '+ ' + EVENT_FEE.toLocaleString('uk-UA') + ' ₴ за івент · вся Україна';
+
+    document.getElementById('b-courts').textContent = fmt(courtYear);
+    document.getElementById('b-total').textContent = fmt(total1);
+
+    const perEvent = (total1 / events / members);
+    document.getElementById('compare-note').textContent =
+      'При ' + members + ' учасниках і ' + events + ' івентах — один Matchday коштує ~' +
+      Math.round(perEvent).toLocaleString('uk-UA') + ' ₴ на гравця. ' +
+      'Для порівняння: поїздка на іногородній турнір — від 2 000 ₴ лише на дорогу.';
+  }
+
+  ['s-members','s-events','s-courts','s-hours','s-cprice'].forEach(function(id) {
+    document.getElementById(id).addEventListener('input', calc);
+  });
+
+  calc();
+</script>
+</body>
+</html>
