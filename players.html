@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LJM — Гравцям</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0B0B0B;--s1:#141414;--s2:#1E1E1E;--border:#2C2C2C;--text:#EBEBEB;--muted:#787878;--orange:#F07820;--orange-l:#FFA040;--orange-d:#1E0E04;}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.7}
+.nav{position:sticky;top:0;z-index:100;background:rgba(11,11,11,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--orange);text-decoration:none}
+.nav-links{display:flex;align-items:center;gap:1.75rem}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .15s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-cta{background:var(--orange)!important;color:#0B0B0B!important;padding:6px 14px;font-weight:700;font-size:12px!important;font-family:'Space Mono',monospace;letter-spacing:.05em}
+.container{max-width:900px;margin:0 auto;padding:0 2rem}
+section{padding:5rem 0;border-bottom:1px solid var(--border)}
+.eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.75rem}
+h1{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1;letter-spacing:-.02em;color:#fff}
+h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,5vw,48px);font-weight:700;line-height:1.1;color:#fff;margin-bottom:1.5rem}
+h3{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:#fff;margin:2rem 0 .75rem}
+p{color:var(--muted);max-width:640px;margin-bottom:1rem}
+p strong{color:var(--text);font-weight:500}
+
+.hero{padding:6rem 0 5rem;border-bottom:1px solid var(--border)}
+.hero h1{font-size:clamp(40px,8vw,80px);margin-bottom:1.25rem}
+.hero h1 em{color:var(--orange);font-style:normal}
+.hero p{font-size:17px}
+
+.benefits{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin:2rem 0}
+.benefit{background:var(--s1);padding:1.75rem}
+.benefit-icon{font-size:24px;margin-bottom:.75rem;display:block}
+.benefit h4{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:.4rem}
+.benefit p{font-size:14px;margin:0}
+
+.format-blocks{margin:2rem 0}
+.fmt{border:1px solid var(--border);padding:1.5rem;margin-bottom:1px;display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:start;transition:border-color .2s}
+.fmt:hover{border-color:var(--orange)}
+.fmt-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);background:var(--orange-d);padding:.3rem .75rem;white-space:nowrap;height:fit-content;margin-top:.15rem}
+.fmt h4{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:.4rem}
+.fmt p{font-size:14px;margin:0}
+
+.highlight{background:var(--orange-d);border-left:3px solid var(--orange);padding:1.25rem 1.5rem;margin:2rem 0}
+.highlight p{color:var(--text);font-size:15px;margin:0}
+
+.match-table{width:100%;border-collapse:collapse;margin:1.5rem 0}
+.match-table th{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);text-align:left;padding:.6rem .75rem;border-bottom:1px solid var(--border);text-transform:uppercase}
+.match-table td{font-size:13px;color:var(--muted);padding:.75rem;border-bottom:1px solid var(--border);vertical-align:top}
+.match-table td:first-child{color:var(--text);font-weight:500;white-space:nowrap}
+.match-table tr:last-child td{border-bottom:none}
+
+/* Brawl stars mini table */
+.bs-table{width:100%;border-collapse:collapse;margin:1.5rem 0;background:var(--s1);border:1px solid var(--border)}
+.bs-table th{background:#16213e;padding:.7rem .75rem;text-align:center;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;border-right:1px solid var(--border)}
+.bs-table th:first-child{text-align:left;color:var(--muted);width:22%}
+.bs-th-wtn{color:#60a5fa}
+.bs-th-utr{color:var(--orange)}
+.bs-th-bs{color:#f97316}
+.bs-table td{padding:.7rem .75rem;font-size:13px;color:var(--muted);border-right:1px solid var(--border);border-top:1px solid var(--border);text-align:center;vertical-align:top;line-height:1.4}
+.bs-table td:first-child{text-align:left;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;color:#555;text-transform:uppercase}
+.bbadge{display:inline-block;font-size:10px;padding:2px 6px;border-radius:12px;margin-top:3px}
+.bb-blue{background:#1e3a5f;color:#60a5fa}
+.bb-orange-t{background:var(--orange-d);color:var(--orange)}
+.bb-game{background:#2e1800;color:#f97316}
+
+.site-footer{padding:4rem 2rem;border-top:1px solid var(--border);text-align:center}
+.f-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,6vw,56px);font-weight:700;color:#fff;margin-bottom:.25rem}
+.f-sub{font-size:13px;color:var(--muted);margin-bottom:2rem;font-family:'Space Mono',monospace;letter-spacing:.05em}
+.btn-tg{display:inline-block;background:var(--orange);color:#0B0B0B;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.85rem 2rem;text-decoration:none;transition:background .15s}
+.btn-tg:hover{background:var(--orange-l)}
+
+.page-nav{display:flex;justify-content:space-between;padding:1.5rem 0;margin-top:1rem}
+.page-nav a{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .15s}
+.page-nav a:hover{color:var(--orange)}
+
+@media(max-width:640px){
+  .benefits{grid-template-columns:1fr}
+  .fmt{grid-template-columns:1fr}
+  .nav-links a:not(.nav-cta){display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">LJM</a>
+  <div class="nav-links">
+    <a href="players.html" class="active">Гравцям</a>
+    <a href="parents.html">Батькам</a>
+    <a href="coaches.html">Тренерам</a>
+    <a href="https://t.me/+Y55Uze_i1XJkMmYy" class="nav-cta">Telegram →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Для гравців</div>
+    <h1>Більше матчів.<br><em>Менше поїздок.</em></h1>
+    <p>Знаходиш рівного суперника в місті. Граєш. Отримуєш відео своєї гри. Рейтинг оновлюється. І так — щотижня, якщо хочеш.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Що ти отримуєш</div>
+    <h2>Чому це має сенс</h2>
+
+    <div class="benefits">
+      <div class="benefit">
+        <span class="benefit-icon">⚡</span>
+        <h4>Реальний тиск кожного тижня</h4>
+        <p>На тренуванні все виходить. На турнірі — ні. LJM — це середовище між ними де ти вчишся грати під тиском регулярно, а не раз на місяць.</p>
+      </div>
+      <div class="benefit">
+        <span class="benefit-icon">🎥</span>
+        <h4>Відео своєї гри</h4>
+        <p>Після кожного Verified матчу ти отримуєш хайлайти через відеозапис. Побачити себе збоку — це інша інформація ніж те, що каже тренер.</p>
+      </div>
+      <div class="benefit">
+        <span class="benefit-icon">📊</span>
+        <h4>UTR рейтинг</h4>
+        <p>Математична система яка знаходить тобі рівного суперника. Не за вік чи клуб — а за реальний рівень гри. Хлопець чи дівчина — без різниці.</p>
+      </div>
+      <div class="benefit">
+        <span class="benefit-icon">🏠</span>
+        <h4>Вдома, не за 500 км</h4>
+        <p>Корти Євроспорт або інший доступний майданчик. Без готелів, машини і цілого вихідного в дорозі.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Формат</div>
+    <h2>Два типи матчів</h2>
+
+    <div class="format-blocks">
+      <div class="fmt">
+        <div class="fmt-tag">Verified</div>
+        <div>
+          <h4>Офіційний Matchday</h4>
+          <p>Раз на місяць. До 8 гравців підібраних за UTR. Запис відео. Результат зараховується в рейтинг з повною вагою. Суддівство — самі гравці за Fair Play кодексом.</p>
+        </div>
+      </div>
+      <div class="fmt">
+        <div class="fmt-tag">Unverified</div>
+        <div>
+          <h4>Спаринг коли зручно</h4>
+          <p>Домовляєшся з будь-ким зі спільноти на будь-якому корті. Результат фіксується в UTR з меншою вагою. Знімаєш на телефон і закидаєш у відеозапис — отримуєш хайлайти самостійно.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <p>Таймбокс матчу: <strong>45 хвилин чистої гри + 15 хвилин на розминку і прибирання корту</strong>. Рахунок ведеться стандартно, але матч закінчується по часу.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Розбивка суперників</div>
+    <h2>З ким грати і навіщо</h2>
+    <p>Кожен матч — це не просто виграш або програш. Залежно від рівня суперника ти тренуєш різні речі.</p>
+
+    <table class="match-table">
+      <thead>
+        <tr>
+          <th>Рівень суперника</th>
+          <th>Що тренується</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Значно слабший</td><td>Концентрація, дисципліна, завершення розіграшу</td></tr>
+        <tr><td>Трохи слабший</td><td>Стабільність, побудова атаки</td></tr>
+        <tr><td>Рівний</td><td>Тактика, прийняття рішень, терпіння</td></tr>
+        <tr><td>Трохи сильніший</td><td>Гра під тиском, швидкість мислення</td></tr>
+        <tr><td>Значно сильніший</td><td>Адаптація, сміливість, боротьба за кожен м'яч</td></tr>
+      </tbody>
+    </table>
+
+    <p>Програш сильнішому суперникові — це цінний досвід, а не провал. Алгоритм UTR це розуміє: якщо ти зіграв краще ніж очікувалось, рейтинг може вирости навіть після поразки.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">UTR просто</div>
+    <h2>Рейтинги мовою Brawl Stars</h2>
+    <p>Три системи — одна логіка.</p>
+
+    <table class="bs-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="bs-th-wtn">🌍 WTN</th>
+          <th class="bs-th-utr">⚡ UTR</th>
+          <th class="bs-th-bs">🎮 Brawl Stars</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Що це</td>
+          <td>Світовий лідерборд<br><span class="bbadge bb-blue">менше = краще</span></td>
+          <td>Скіл-рейтинг<br><span class="bbadge bb-orange-t">більше = краще</span></td>
+          <td>Кубки і ліги<br><span class="bbadge bb-game">Bronze → Masters</span></td>
+        </tr>
+        <tr>
+          <td>Формат гри</td>
+          <td>🏟️ Турнір ФТУ<br>Офіційне змагання</td>
+          <td>🎾 LJM Matchday<br>Верифікована катка</td>
+          <td>🏆 Випробування<br>Чемпіонату</td>
+        </tr>
+        <tr>
+          <td>Неофіційна гра</td>
+          <td>✗ Не рахується</td>
+          <td>🟡 Unverified<br>менша вага але є</td>
+          <td>🎮 Дружня катка</td>
+        </tr>
+        <tr>
+          <td>Якщо програв</td>
+          <td>Очки не нараховуються</td>
+          <td>Рейтинг може вирости якщо грав краще за прогноз</td>
+          <td>Кубки туди-сюди — не драматизуй</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight">
+      <p><strong>Не тілтуй — качай скіл.</strong> UTR не накручують. Алгоритм сам відкидає нерівні матчі. Оптимальна зона росту — суперник ±1.0 від тебе.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Чому UTR</div>
+    <h2>Інструмент, а не ідеологія</h2>
+    <p>Ми не прив'язані до жодної системи. Ми обрали ту яка зараз вирішує конкретну задачу.</p>
+
+    <div style="margin:1.5rem 0;border:1px solid var(--border)">
+      <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border)">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--orange);text-transform:uppercase;margin-bottom:.5rem">WTN — World Tennis Number</div>
+        <p style="font-size:14px;margin:0;color:var(--muted)">Офіційна система ITF. Математично схожа на UTR і добре інтегрована з ФТУ. <strong style="color:var(--text)">Але наразі не підтримує верифікацію неофіційних матчів між гравцями.</strong> Коли WTN це змінить — ми перейдемо на неї.</p>
+      </div>
+      <div style="padding:1.25rem 1.5rem;border-bottom:1px solid var(--border)">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:.5rem">Локальний Elo</div>
+        <p style="font-size:14px;margin:0;color:var(--muted)">Класичний алгоритм — той самий що у шахах і Brawl Stars. Можна зробити всередині LJM. Але це як лідерборд без онлайн-режиму: покаже хто кращий серед нас, але <strong style="color:var(--text)">не скаже як ти стоїш відносно гравців з інших міст або країн.</strong></p>
+      </div>
+      <div style="padding:1.25rem 1.5rem">
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--orange);text-transform:uppercase;margin-bottom:.5rem">UTR — зараз</div>
+        <p style="font-size:14px;margin:0;color:var(--muted)">Єдина система яка дозволяє верифікувати неофіційні матчі і зіставляти рівень гравців з глобальною базою. <strong style="color:var(--text)">Не бренд — функція.</strong> З'явиться краще рішення — використаємо його.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Fair Play</div>
+    <h2>Правила корту</h2>
+
+    <div style="margin:1.5rem 0">
+      <div style="display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);align-items:flex-start">
+        <span style="font-family:'Space Mono',monospace;font-size:24px;color:var(--orange);line-height:1;flex-shrink:0;width:32px">01</span>
+        <span style="font-size:15px;color:var(--muted)">Оголошуй рахунок голосно перед кожним розіграшем</span>
+      </div>
+      <div style="display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);align-items:flex-start">
+        <span style="font-family:'Space Mono',monospace;font-size:24px;color:var(--orange);line-height:1;flex-shrink:0;width:32px">02</span>
+        <span style="font-size:15px;color:var(--muted)">При сумніві щодо лінії — м'яч суперникові</span>
+      </div>
+      <div style="display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border);align-items:flex-start">
+        <span style="font-family:'Space Mono',monospace;font-size:24px;color:var(--orange);line-height:1;flex-shrink:0;width:32px">03</span>
+        <span style="font-size:15px;color:var(--muted)">До організатора — тільки при системному порушенні, не поодинокому</span>
+      </div>
+      <div style="display:flex;gap:1rem;padding:1rem 0;align-items:flex-start">
+        <span style="font-family:'Space Mono',monospace;font-size:24px;color:var(--orange);line-height:1;flex-shrink:0;width:32px">04</span>
+        <span style="font-size:15px;color:var(--muted)">Рукостискання після матчу — обов'язкове</span>
+      </div>
+    </div>
+
+    <p style="font-size:14px">Тренер може давати поради під час changeover. Підказки під час розіграшів — заборонені для всіх.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="page-nav">
+    <a href="index.html">← Головна</a>
+    <a href="parents.html">Батькам →</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="f-title">Players Only</div>
+  <div class="f-sub">LJM · Lviv Junior Matchday · 2025</div>
+  <a href="https://t.me/+Y55Uze_i1XJkMmYy" class="btn-tg">Приєднатись до Telegram →</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LJM — Тренерам</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0B0B0B;--s1:#141414;--s2:#1E1E1E;--border:#2C2C2C;--text:#EBEBEB;--muted:#787878;--orange:#F07820;--orange-l:#FFA040;--orange-d:#1E0E04;}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.7}
+.nav{position:sticky;top:0;z-index:100;background:rgba(11,11,11,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--orange);text-decoration:none}
+.nav-links{display:flex;align-items:center;gap:1.75rem}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .15s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-cta{background:var(--orange)!important;color:#0B0B0B!important;padding:6px 14px;font-weight:700;font-size:12px!important;font-family:'Space Mono',monospace;letter-spacing:.05em}
+.container{max-width:900px;margin:0 auto;padding:0 2rem}
+section{padding:5rem 0;border-bottom:1px solid var(--border)}
+.eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.75rem}
+h1{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1;letter-spacing:-.02em;color:#fff}
+h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,4.5vw,44px);font-weight:700;line-height:1.1;color:#fff;margin-bottom:1.5rem}
+p{color:var(--muted);max-width:640px;margin-bottom:1rem}
+p strong{color:var(--text);font-weight:500}
+
+.hero{padding:6rem 0 5rem;border-bottom:1px solid var(--border)}
+.hero h1{font-size:clamp(36px,7vw,72px);margin-bottom:1.25rem}
+.hero h1 em{color:var(--orange);font-style:normal}
+.hero p{font-size:17px}
+
+.highlight{background:var(--orange-d);border-left:3px solid var(--orange);padding:1.25rem 1.5rem;margin:2rem 0}
+.highlight p{color:var(--text);font-size:15px;margin:0;max-width:none}
+
+/* PAIN CARDS - two columns, coach pain / parent pain */
+.bridge{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin:2rem 0}
+.bridge-col{background:var(--s1);padding:1.75rem}
+.bridge-col-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.25rem}
+.bridge-col-title.coach{color:var(--orange)}
+.bridge-col-title.parent{color:#60a5fa}
+.pain-item{display:flex;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--muted);align-items:flex-start}
+.pain-item:last-child{border-bottom:none}
+.pain-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:.55rem}
+.pain-dot.orange{background:var(--orange)}
+.pain-dot.blue{background:#60a5fa}
+
+.bridge-center{background:var(--orange-d);border:1px solid var(--orange);padding:1.5rem;margin:1px 0;text-align:center}
+.bridge-center p{color:var(--orange);font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;margin:0;max-width:none}
+
+/* TOOLS */
+.tools{margin:2rem 0}
+.tool{display:grid;grid-template-columns:auto 1fr;gap:1.5rem;padding:1.5rem;border:1px solid var(--border);margin-bottom:1px;align-items:start;transition:border-color .2s}
+.tool:hover{border-color:var(--orange)}
+.tool-icon{font-size:26px;line-height:1}
+.tool-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--orange);text-transform:uppercase;margin-bottom:.4rem}
+.tool h4{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:.4rem}
+.tool p{font-size:14px;margin:0;max-width:none}
+
+/* RULES */
+.rules{border:1px solid var(--border);margin:1.5rem 0}
+.rule-row{display:flex;gap:1rem;padding:1rem 1.5rem;border-bottom:1px solid var(--border);align-items:center;font-size:14px}
+.rule-row:last-child{border-bottom:none}
+.rule-icon{font-size:18px;flex-shrink:0;width:24px;text-align:center}
+
+/* NOT WE */
+.not-we{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin:2rem 0}
+.not-we-cell{background:var(--s1);padding:1.25rem 1.5rem;font-size:14px}
+.not-we-cell.no{color:var(--muted)}
+.not-we-cell.yes{color:var(--text)}
+.not-we-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.5rem}
+.not-we-label.no{color:#f87171}
+.not-we-label.yes{color:#4ade80}
+
+.site-footer{padding:4rem 2rem;border-top:1px solid var(--border);text-align:center}
+.f-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,6vw,56px);font-weight:700;color:#fff;margin-bottom:.25rem}
+.f-sub{font-size:13px;color:var(--muted);margin-bottom:2rem;font-family:'Space Mono',monospace;letter-spacing:.05em}
+.btn-tg{display:inline-block;background:var(--orange);color:#0B0B0B;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.85rem 2rem;text-decoration:none;transition:background .15s}
+.btn-tg:hover{background:var(--orange-l)}
+.page-nav{display:flex;justify-content:space-between;padding:1.5rem 0;margin-top:1rem}
+.page-nav a{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .15s}
+.page-nav a:hover{color:var(--orange)}
+
+@media(max-width:640px){
+  .bridge,.not-we{grid-template-columns:1fr}
+  .tool{grid-template-columns:1fr}
+  .nav-links a:not(.nav-cta){display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">LJM</a>
+  <div class="nav-links">
+    <a href="players.html">Гравцям</a>
+    <a href="parents.html">Батькам</a>
+    <a href="coaches.html" class="active">Тренерам</a>
+    <a href="https://t.me/+Y55Uze_i1XJkMmYy" class="nav-cta">Telegram →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Для тренерів</div>
+    <h1>Ми не вчимо<br>вас тренувати.<br><em>Ми будуємо міст.</em></h1>
+    <p>Між вами і батьками. Між тренуванням і матчем. Між тим що ви бачите на корті — і тим що бачить сім'я.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Дві сторони</div>
+    <h2>Болі які є у кожного</h2>
+    <p>Тренери і батьки рідко чують одне одного. LJM — середовище де обидві сторони отримують спільний контекст.</p>
+
+    <div class="bridge">
+      <div class="bridge-col">
+        <div class="bridge-col-title coach">Тренер знає</div>
+        <div class="pain-item"><span class="pain-dot orange"></span><span>Чому дитина на турнірі грає гірше ніж на тренуванні</span></div>
+        <div class="pain-item"><span class="pain-dot orange"></span><span>Що технічна помилка на матчі — це ще не виправлений автоматизм, а не "поганий день"</span></div>
+        <div class="pain-item"><span class="pain-dot orange"></span><span>Що потрібно більше ігрової практики під тиском, а не більше годин на корті</span></div>
+        <div class="pain-item"><span class="pain-dot orange"></span><span>Що батьківський тиск на трибуні руйнує те що будується місяцями</span></div>
+      </div>
+      <div class="bridge-col">
+        <div class="bridge-col-title parent">Батько хоче знати</div>
+        <div class="pain-item"><span class="pain-dot blue"></span><span>Чому дитина на турнірі грає гірше ніж на тренуванні</span></div>
+        <div class="pain-item"><span class="pain-dot blue"></span><span>Чи є прогрес і як його виміряти об'єктивно</span></div>
+        <div class="pain-item"><span class="pain-dot blue"></span><span>Чи варті гроші на тренування і поїздки на турніри своїх витрат</span></div>
+        <div class="pain-item"><span class="pain-dot blue"></span><span>Що відбувається з дитиною на корті коли його немає поруч</span></div>
+      </div>
+    </div>
+
+    <div class="bridge-center">
+      <p>Перший рядок однаковий в обох колонках. Але кожен з них залишається зі своїм варіантом відповіді — і ці відповіді рідко збігаються.</p>
+    </div>
+
+    <div class="highlight" style="margin-top:1.5rem">
+      <p>LJM дає обом сторонам <strong>спільний контекст після кожного матчу</strong>: відео, рейтинг, результат. Батько приходить на тренування вже з розумінням що відбулось. Ви витрачаєте менше часу на пояснення і більше — на роботу.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Що ви отримуєте</div>
+    <h2>Три конкретні речі</h2>
+
+    <div class="tools">
+      <div class="tool">
+        <span class="tool-icon">🎥</span>
+        <div>
+          <div class="tool-tag">Відео</div>
+          <h4>Матч учня без вашої присутності</h4>
+          <p>Запис кожного Verified матчу завантажується на YouTube і надсилається вам через Telegram. Ви бачите як гравець поводиться під тиском — не на тренуванні, а в реальному матчі проти рівного суперника. Це інформація яку раніше можна було отримати тільки особисто стоячи біля корту.</p>
+        </div>
+      </div>
+      <div class="tool">
+        <span class="tool-icon">📊</span>
+        <div>
+          <div class="tool-tag">Рейтинг</div>
+          <h4>Об'єктивний рівень гравця</h4>
+          <p>UTR — математична оцінка рівня на основі реальних результатів. Не ваша суб'єктивна думка, не місце на локальному турнірі. Спільна мова між вами, батьками і гравцем. Коли WTN досягне такої ж гнучкості для неофіційних матчів — перейдемо на неї.</p>
+        </div>
+      </div>
+      <div class="tool">
+        <span class="tool-icon">⏱️</span>
+        <div>
+          <div class="tool-tag">Ігровий час</div>
+          <h4>Більше матчів між турнірами</h4>
+          <p>Верифікований Matchday раз на місяць плюс неофіційні спаринги коли зручно. Ваш гравець набирає ігрову практику під тиском без необхідності їхати 200–500 км на турнір 2-ї категорії. Ви вирішуєте коли і як це вписується в тренувальний цикл.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Позиціонування</div>
+    <h2>Чим LJM не є</h2>
+
+    <div class="not-we">
+      <div class="not-we-cell no">
+        <div class="not-we-label no">✗ Не ми</div>
+        Замінити тренера або клуб
+      </div>
+      <div class="not-we-cell yes">
+        <div class="not-we-label yes">✓ Ми</div>
+        Додаткова ланка між тренуванням і турніром
+      </div>
+      <div class="not-we-cell no">
+        <div class="not-we-label no">✗ Не ми</div>
+        Говорити батькам як правильно підтримувати дитину
+      </div>
+      <div class="not-we-cell yes">
+        <div class="not-we-label yes">✓ Ми</div>
+        Дати батькам контекст який ви вже знаєте — через відео і рейтинг
+      </div>
+      <div class="not-we-cell no">
+        <div class="not-we-label no">✗ Не ми</div>
+        Конкурувати за увагу і час гравця
+      </div>
+      <div class="not-we-cell yes">
+        <div class="not-we-label yes">✓ Ми</div>
+        Дати вашому гравцю більше ігрової практики яку ви і так хотіли б для нього
+      </div>
+      <div class="not-we-cell no">
+        <div class="not-we-label no">✗ Не ми</div>
+        Оцінювати вашу роботу як тренера
+      </div>
+      <div class="not-we-cell yes">
+        <div class="not-we-label yes">✓ Ми</div>
+        Давати вам більше інформації для вашої власної роботи
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Правила</div>
+    <h2>Ваша роль на матчі</h2>
+    <p>Якщо хочете бути присутніми — будь ласка. Правила прості і рівні для всіх.</p>
+
+    <div class="rules">
+      <div class="rule-row">
+        <span class="rule-icon" style="color:var(--orange)">✓</span>
+        <span style="color:var(--muted);font-size:14px">Поради під час <strong style="color:var(--text)">changeover</strong> — дозволено, якщо у обох гравців є тренер на матчі</span>
+      </div>
+      <div class="rule-row">
+        <span class="rule-icon" style="color:#f87171">✗</span>
+        <span style="color:var(--muted);font-size:14px">Підказки під час розіграшів і між подаваннями — заборонені для всіх</span>
+      </div>
+      <div class="rule-row">
+        <span class="rule-icon" style="color:var(--orange)">✓</span>
+        <span style="color:var(--muted);font-size:14px">Повний розбір після матчу — завжди, без обмежень</span>
+      </div>
+      <div class="rule-row">
+        <span class="rule-icon" style="color:var(--orange)">✓</span>
+        <span style="color:var(--muted);font-size:14px">Відео матчу — надсилається вам автоматично після кожного Verified Matchday</span>
+      </div>
+    </div>
+
+    <p style="font-size:14px;margin-top:1rem">Наявність тренера фіксується до першого подавання. Якщо у одного гравця тренера немає — обидва грають без коучінгу під час матчу. Рівні умови для всіх.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="page-nav">
+    <a href="parents.html">← Батькам</a>
+    <a href="index.html">Головна →</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="f-title">LJM</div>
+  <div class="f-sub">Lviv Junior Matchday · 2025</div>
+  <a href="https://t.me/+Y55Uze_i1XJkMmYy" class="btn-tg">Приєднатись до Telegram →</a>
+</footer>
+
+</body>
+</html>

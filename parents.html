@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LJM — Батькам</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0B0B0B;--s1:#141414;--s2:#1E1E1E;--border:#2C2C2C;--text:#EBEBEB;--muted:#787878;--orange:#F07820;--orange-l:#FFA040;--orange-d:#1E0E04;}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.7}
+.nav{position:sticky;top:0;z-index:100;background:rgba(11,11,11,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--orange);text-decoration:none}
+.nav-links{display:flex;align-items:center;gap:1.75rem}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .15s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-cta{background:var(--orange)!important;color:#0B0B0B!important;padding:6px 14px;font-weight:700;font-size:12px!important;font-family:'Space Mono',monospace;letter-spacing:.05em}
+.container{max-width:900px;margin:0 auto;padding:0 2rem}
+section{padding:5rem 0;border-bottom:1px solid var(--border)}
+.eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.75rem}
+h1{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1;letter-spacing:-.02em;color:#fff}
+h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,4.5vw,44px);font-weight:700;line-height:1.1;color:#fff;margin-bottom:1.5rem}
+h3{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:#fff;margin:2rem 0 .75rem}
+p{color:var(--muted);max-width:640px;margin-bottom:1rem}
+p strong{color:var(--text);font-weight:500}
+
+.hero{padding:6rem 0 5rem;border-bottom:1px solid var(--border)}
+.hero h1{font-size:clamp(36px,7vw,72px);margin-bottom:1.25rem}
+.hero h1 em{color:var(--orange);font-style:normal}
+.hero p{font-size:17px}
+
+.highlight{background:var(--orange-d);border-left:3px solid var(--orange);padding:1.25rem 1.5rem;margin:2rem 0}
+.highlight p{color:var(--text);font-size:15px;margin:0}
+
+.qa-list{margin:2rem 0}
+.qa{padding:1.5rem 0;border-bottom:1px solid var(--border)}
+.qa:last-child{border-bottom:none}
+.qa-q{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:#fff;margin-bottom:.75rem}
+.qa-a{font-size:15px;color:var(--muted);max-width:none}
+.qa-a strong{color:var(--text)}
+
+.benefits{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin:2rem 0}
+.benefit{background:var(--s1);padding:1.75rem}
+.benefit-icon{font-size:22px;margin-bottom:.75rem;display:block}
+.benefit h4{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:#fff;margin-bottom:.4rem}
+.benefit p{font-size:14px;margin:0}
+
+.cost-table{width:100%;border-collapse:collapse;margin:1.5rem 0}
+.cost-table th{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);text-align:left;padding:.6rem .75rem;border-bottom:1px solid var(--border);text-transform:uppercase}
+.cost-table td{font-size:14px;color:var(--muted);padding:.85rem .75rem;border-bottom:1px solid var(--border)}
+.cost-table td:first-child{color:var(--text)}
+.cost-table td.good{color:#4ade80}
+.cost-table tr:last-child td{border-bottom:none}
+.cost-table .vs-row td{background:var(--orange-d);color:var(--orange);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:.5rem .75rem}
+
+.structure-block{border:1px solid var(--border);margin:1.5rem 0}
+.structure-row{display:flex;padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);align-items:flex-start;gap:1rem}
+.structure-row:last-child{border-bottom:none}
+.sr-icon{font-size:18px;flex-shrink:0;margin-top:2px}
+.sr-text{font-size:14px;color:var(--muted);line-height:1.5}
+.sr-text strong{color:var(--text);font-weight:500}
+
+.site-footer{padding:4rem 2rem;border-top:1px solid var(--border);text-align:center}
+.f-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,6vw,56px);font-weight:700;color:#fff;margin-bottom:.25rem}
+.f-sub{font-size:13px;color:var(--muted);margin-bottom:2rem;font-family:'Space Mono',monospace;letter-spacing:.05em}
+.btn-tg{display:inline-block;background:var(--orange);color:#0B0B0B;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.85rem 2rem;text-decoration:none;transition:background .15s}
+.btn-tg:hover{background:var(--orange-l)}
+
+.page-nav{display:flex;justify-content:space-between;padding:1.5rem 0;margin-top:1rem}
+.page-nav a{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .15s}
+.page-nav a:hover{color:var(--orange)}
+
+@media(max-width:640px){
+  .benefits{grid-template-columns:1fr}
+  .nav-links a:not(.nav-cta){display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">LJM</a>
+  <div class="nav-links">
+    <a href="players.html">Гравцям</a>
+    <a href="parents.html" class="active">Батькам</a>
+    <a href="coaches.html">Тренерам</a>
+    <a href="https://t.me/+Y55Uze_i1XJkMmYy" class="nav-cta">Telegram →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Для батьків</div>
+    <h1>Зрозумілий прогрес.<br><em>Менше поїздок.</em><br>Більше гри.</h1>
+    <p>LJM — це відповідь на питання яке ставить кожен батько: чому дитина на тренуванні грає добре, а на турнірі — ні.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Головне питання</div>
+    <h2>Чому дитина грає гірше на турнірі?</h2>
+
+    <p>Це питання ставить майже кожен батько. Відповідь не в тому, що дитина "не хоче" або "не старається".</p>
+
+    <div class="highlight">
+      <p>Під час матчу: більше тиску, вищий пульс, менше часу на рішення, сильніше емоційне навантаження. <strong>У таких умовах мозок покладається виключно на добре автоматизовані навички.</strong></p>
+    </div>
+
+    <p>Якщо техніка чи тактика ще не стали автоматизмом, відтворити їх у матчі набагато складніше. Дитина може чудово виконувати вправу на тренуванні — і втрачати цю якість під час турніру.</p>
+
+    <p>Рішення просте: <strong>матчі мають бути частиною тренувального процесу.</strong> Не рідкісним екзаменом раз на місяць, а звичним середовищем навчання. Саме це і є LJM.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Ваші питання</div>
+    <h2>Те, що хвилює батьків</h2>
+
+    <div class="qa-list">
+      <div class="qa">
+        <div class="qa-q">Чи потрібно міняти тренера або клуб?</div>
+        <p class="qa-a">Ні. LJM — це <strong>додатковий формат практики</strong> всередині вже існуючого тренувального процесу. Дитина залишається у своєму клубі зі своїм тренером. Ми додаємо ланку між тренуванням і турніром — контрольний матч.</p>
+      </div>
+      <div class="qa">
+        <div class="qa-q">Що таке UTR і навіщо він?</div>
+        <p class="qa-a">UTR (Universal Tennis Rating) — математична система яка оцінює рівень гравця за реальними результатами матчів. Ми використовуємо його не як мету, а як <strong>інструмент підбору рівного суперника</strong>. Гравець з рейтингом 6.0 грає з суперником у діапазоні 5.0–7.0 — завжди конкурентний і безпечний матч. Якщо дитина вже грала на міжнародних турнірах — профіль UTR вже існує, потрібно лише підтвердити його на utrsports.net.</p>
+      </div>
+      <div class="qa">
+        <div class="qa-q">Чи можна бути присутнім на матчі?</div>
+        <p class="qa-a">Так. Публічний канал і організація івентів відкриті для батьків і тренерів. Окремий приватний чат для гравців — це простір для підліткового спілкування і самоорганізації, не закритість від батьків.</p>
+      </div>
+      <div class="qa">
+        <div class="qa-q">Чи буде суддя на матчах?</div>
+        <p class="qa-a">Матчі проводяться за системою самосуддівства з чітким Fair Play кодексом: при сумніві щодо лінії м'яч зараховується суперникові, рахунок оголошується голосно перед кожним розіграшем. Це стандарт більшості юніорських матчів у світі і частина формування відповідальності спортсмена.</p>
+      </div>
+      <div class="qa">
+        <div class="qa-q">Чи це замінює офіційні турніри ФТУ?</div>
+        <p class="qa-a">Ні. LJM доповнює офіційний календар: <strong>турніри категорії 1 і A — їдемо завжди</strong>. Турніри категорії 2 поблизу — також їдемо. Все що далеко і низької категорії — замінюємо на LJM Matchday з таким самим рівнем тиску але без витрат на дорогу.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Порівняння</div>
+    <h2>LJM проти поїздки на турнір</h2>
+
+    <table class="cost-table">
+      <thead>
+        <tr><th>Стаття</th><th>Турнір 2-ї категорії (200 км)</th><th>LJM Matchday</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Дорога</td><td>400–800 грн паливо</td><td class="good">0 грн</td></tr>
+        <tr><td>Проживання</td><td>800–1500 грн готель</td><td class="good">0 грн</td></tr>
+        <tr><td>Час батьків</td><td>Весь вихідний</td><td class="good">3–4 години</td></tr>
+        <tr><td>Кількість матчів</td><td>1–2 (після вибування)</td><td class="good">1 гарантований</td></tr>
+        <tr><td>Відеоаналіз</td><td>Зазвичай відсутній</td><td class="good">Після кожного матчу</td></tr>
+        <tr><td>Рівень суперника</td><td>Випадковий</td><td class="good">Підібраний за UTR ±1.0</td></tr>
+        <tr class="vs-row"><td colspan="2">Місячний внесок LJM (16 учасників)</td><td>~740 грн/міс</td></tr>
+      </tbody>
+    </table>
+
+    <p>740 грн на місяць — це вартість одного тренування в клубі. За ці гроші дитина отримує Matchday з відеоаналізом, необмежену кількість неофіційних спарингів і UTR рейтинг.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Що ви отримуєте</div>
+    <h2>Конкретні переваги</h2>
+
+    <div class="benefits">
+      <div class="benefit">
+        <span class="benefit-icon">📈</span>
+        <h4>Зрозумілий прогрес</h4>
+        <p>UTR рейтинг оновлюється після кожного матчу. Ви бачите динаміку, а не суб'єктивну оцінку тренера раз на сезон.</p>
+      </div>
+      <div class="benefit">
+        <span class="benefit-icon">🎥</span>
+        <h4>Відеоаналіз після матчу</h4>
+        <p>Хайлайти через відеозапис — ви і дитина бачите реальну гру з боку. Тренер отримує матеріал для наступних тренувань.</p>
+      </div>
+      <div class="benefit">
+        <span class="benefit-icon">🧠</span>
+        <h4>Розвиток самостійності</h4>
+        <p>Дитина вчиться аналізувати свою гру, приймати рішення під тиском і відповідати за результат без вашої підтримки з трибуни.</p>
+      </div>
+      <div class="benefit">
+        <span class="benefit-icon">🤝</span>
+        <h4>Спільнота рівних</h4>
+        <p>Юніори з різних клубів Львова. Нові суперники, нові знайомства, мотивація грати — а не просто ходити на тренування.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Структура</div>
+    <h2>Як влаштована спільнота</h2>
+
+    <div class="structure-block">
+      <div class="structure-row">
+        <span class="sr-icon">📢</span>
+        <div class="sr-text"><strong>Публічний Telegram-канал</strong> — оголошення, розклад, результати матчів. Відкритий для батьків і тренерів.</div>
+      </div>
+      <div class="structure-row">
+        <span class="sr-icon">💬</span>
+        <div class="sr-text"><strong>Приватний чат для гравців</strong> — підліткове спілкування і самоорганізація. Не закритість від батьків, а простір де фокус на грі а не на батьківських очікуваннях.</div>
+      </div>
+      <div class="structure-row">
+        <span class="sr-icon">🏛️</span>
+        <div class="sr-text"><strong>Майбутня ГО</strong> — наступний крок LJM. Легальний механізм збору членських внесків з повною фінансовою прозорістю для всіх учасників.</div>
+      </div>
+      <div class="structure-row">
+        <span class="sr-icon">📋</span>
+        <div class="sr-text"><strong>Тренер — бенефіціар</strong>, а не конкурент. Відеоаналіз матчу отримує і дитина, і тренер — готовий матеріал для роботи без додаткового спостереження.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="page-nav">
+    <a href="players.html">← Гравцям</a>
+    <a href="coaches.html">Тренерам →</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="f-title">LJM</div>
+  <div class="f-sub">Lviv Junior Matchday · 2025</div>
+  <a href="https://t.me/+Y55Uze_i1XJkMmYy" class="btn-tg">Приєднатись до Telegram →</a>
+</footer>
+
+</body>
+</html>

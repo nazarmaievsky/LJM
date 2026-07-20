@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LJM — Полігон розвитку юного тенісиста</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0B0B0B;--s1:#141414;--s2:#1E1E1E;--border:#2C2C2C;
+  --text:#EBEBEB;--muted:#787878;--orange:#F07820;--orange-l:#FFA040;--orange-d:#1E0E04;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.7}
+.nav{position:sticky;top:0;z-index:100;background:rgba(11,11,11,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--orange);text-decoration:none}
+.nav-links{display:flex;align-items:center;gap:1.75rem}
+.nav-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .15s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--orange)!important;color:#0B0B0B!important;padding:6px 14px;font-weight:700;font-size:12px!important;font-family:'Space Mono',monospace;letter-spacing:.05em}
+.container{max-width:900px;margin:0 auto;padding:0 2rem}
+section{padding:5rem 0;border-bottom:1px solid var(--border)}
+.eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.75rem}
+h1{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1;letter-spacing:-.02em;color:#fff}
+h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,5vw,48px);font-weight:700;line-height:1.1;color:#fff;margin-bottom:1.5rem}
+h3{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:#fff;margin:2rem 0 .75rem}
+p{color:var(--muted);max-width:640px;margin-bottom:1rem}
+p strong{color:var(--text);font-weight:500}
+
+/* HERO */
+.hero{min-height:92vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 5rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;pointer-events:none;user-select:none;overflow:hidden}
+.hero-word{font-family:'Space Grotesk',sans-serif;font-size:clamp(160px,28vw,340px);font-weight:700;color:#ffffff04;line-height:1;letter-spacing:-.04em;white-space:nowrap}
+.hero-tag{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:1.5rem}
+.hero h1{font-size:clamp(44px,9vw,96px);margin-bottom:1.5rem}
+.hero h1 em{color:var(--orange);font-style:normal}
+.hero-desc{font-size:18px;color:var(--muted);max-width:520px;margin-bottom:2.5rem;line-height:1.65}
+.hero-desc strong{color:var(--text)}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.85rem 2rem;background:var(--orange);color:#0B0B0B;text-decoration:none;transition:background .15s}
+.btn-primary:hover{background:var(--orange-l)}
+.btn-ghost{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:.85rem 2rem;border:1px solid var(--border);color:var(--muted);text-decoration:none;transition:border-color .15s,color .15s}
+.btn-ghost:hover{border-color:var(--muted);color:var(--text)}
+
+/* LOOP */
+.loop-wrap{margin:2.5rem 0}
+.loop{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem}
+.loop-node{background:var(--s2);border:1px solid var(--border);padding:.55rem 1.1rem;font-family:'Space Mono',monospace;font-size:12px;color:var(--text);transition:border-color .2s,color .2s}
+.loop-node:hover{border-color:var(--orange);color:var(--orange)}
+.loop-arr{color:var(--orange);font-size:20px;line-height:1}
+
+/* AUDIENCE PORTALS */
+.portals{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin:2.5rem 0}
+.portal{background:var(--s1);padding:2rem 1.75rem;text-decoration:none;display:block;transition:background .2s;position:relative}
+.portal:hover{background:var(--s2)}
+.portal-icon{font-size:28px;margin-bottom:1rem;display:block}
+.portal-title{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:.5rem}
+.portal-desc{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:1.25rem}
+.portal-link{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--orange);text-transform:uppercase}
+
+/* PROBLEM DIAGRAM */
+.diagram{background:var(--s1);border:1px solid var(--border);padding:2rem;margin:2rem 0}
+.diagram-row{display:flex;align-items:flex-start;gap:1rem;padding:.75rem 0;border-bottom:1px solid var(--border)}
+.diagram-row:last-child{border-bottom:none}
+.d-before{flex:1;font-size:14px;color:var(--muted)}
+.d-arrow{color:var(--border);font-size:20px;flex-shrink:0;padding-top:2px}
+.d-after{flex:1;font-size:14px;color:var(--text)}
+.d-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--orange);text-transform:uppercase;margin-bottom:.2rem}
+
+/* PRINCIPLES */
+.principles{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin:2rem 0}
+.principle{background:var(--s1);padding:1.75rem}
+.principle-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--orange);letter-spacing:.15em;margin-bottom:.75rem}
+.principle h4{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#fff;margin-bottom:.5rem}
+.principle p{font-size:14px;margin:0}
+
+.site-footer{padding:4rem 2rem;border-top:1px solid var(--border);text-align:center}
+.f-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,6vw,56px);font-weight:700;color:#fff;margin-bottom:.25rem}
+.f-sub{font-size:13px;color:var(--muted);margin-bottom:2rem;font-family:'Space Mono',monospace;letter-spacing:.05em}
+.btn-tg{display:inline-block;background:var(--orange);color:#0B0B0B;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.85rem 2rem;text-decoration:none;transition:background .15s}
+.btn-tg:hover{background:var(--orange-l)}
+
+@media(max-width:640px){
+  .portals,.principles{grid-template-columns:1fr}
+  .nav-links a:not(.nav-cta){display:none}
+  .diagram-row{flex-direction:column;gap:.5rem}
+  .d-arrow{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">LJM</a>
+  <div class="nav-links">
+    <a href="players.html">Гравцям</a>
+    <a href="parents.html">Батькам</a>
+    <a href="coaches.html">Тренерам</a>
+    <a href="https://t.me/+Y55Uze_i1XJkMmYy" class="nav-cta">Telegram →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"><span class="hero-word">ПОЛІГОН</span></div>
+  <div class="container">
+    <div class="hero-tag">Lviv Junior Matchday</div>
+    <h1>Місце де матч —<br>це <em>продовження</em><br>тренування</h1>
+    <p class="hero-desc">LJM — це не турнір і не тренування. Це <strong>відсутня ланка</strong> між ними: регулярні контрольні матчі, аналітика і короткий цикл зворотного зв'язку.</p>
+    <div class="hero-cta">
+      <a href="https://t.me/+Y55Uze_i1XJkMmYy" class="btn-primary">Приєднатись →</a>
+      <a href="#concept" class="btn-ghost">Дізнатись більше</a>
+    </div>
+  </div>
+</section>
+
+<section id="concept">
+  <div class="container">
+    <div class="eyebrow">Проблема</div>
+    <h2>Чому цикл розвитку такий повільний?</h2>
+    <p>Сьогодні між тренуванням і турніром проходять тижні. Помилки виявляються пізно. Виїзні змагання дорогі. Тренеру складно зрозуміти, що реально переноситься у матч.</p>
+
+    <div class="diagram">
+      <div class="diagram-row">
+        <div class="d-before"><div class="d-label">Зараз</div>Тренування → Турнір через тижні → Помилки → Новий цикл</div>
+        <div class="d-arrow">→</div>
+        <div class="d-after"><div class="d-label">З LJM</div>Тренування → Контрольний матч → Аналіз → Корекція → Новий цикл</div>
+      </div>
+    </div>
+
+    <p>Ми хочемо зробити цей цикл <strong>коротшим</strong>. Щоб помилки знаходились цього тижня, а не через місяць.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Рішення</div>
+    <h2>Цикл навчання</h2>
+    <p>Кожен матч має навчальну мету. Після кожного матчу — нова інформація для наступного циклу.</p>
+
+    <div class="loop-wrap">
+      <div class="loop">
+        <span class="loop-node">🎯 Вдумливе тренування</span>
+        <span class="loop-arr">→</span>
+        <span class="loop-node">🎾 Контрольний матч</span>
+        <span class="loop-arr">→</span>
+        <span class="loop-node">📈 Аналіз</span>
+        <span class="loop-arr">→</span>
+        <span class="loop-node">🔧 Корекція</span>
+        <span class="loop-arr">→</span>
+        <span class="loop-node" style="border-color:var(--orange);color:var(--orange)">↩ Новий цикл</span>
+      </div>
+    </div>
+
+    <p>Турнір не створює нову навичку. Він показує, наскільки добре вона вже працює. LJM дає можливість перевіряти навички регулярно — без тисячокілометрових поїздок.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Чотири принципи</div>
+    <h2>Як це влаштовано</h2>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-num">01 — ТРЕНУВАННЯ</div>
+        <h4>Вдумливе тренування</h4>
+        <p>Кожна вправа відповідає на питання: <em style="color:var(--text)">що саме ми зараз будуємо?</em> Без цього питання година на корті — це просто година.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">02 — МАТЧ</div>
+        <h4>Контрольний матч</h4>
+        <p>Матч проводиться не лише для визначення переможця. Його головна задача — перевірити навички під тиском.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">03 — АВТОМАТИЗМ</div>
+        <h4>Від навички до автоматизму</h4>
+        <p>На турнірі спортсмен показує максимум того, що стало автоматизмом. Саме тому матчі мають бути частиною тренувального процесу.</p>
+      </div>
+      <div class="principle">
+        <div class="principle-num">04 — ЗВОРОТНИЙ ЗВ'ЯЗОК</div>
+        <h4>Короткий цикл</h4>
+        <p>Не чекати наступного великого турніру. Отримати інформацію вже цього тижня. Швидше скоригувати — швидше побачити результат.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="eyebrow">Для кого</div>
+    <h2>Оберіть свою сторінку</h2>
+    <p>LJM створює середовище для гравців, батьків і тренерів. Кожен отримує щось своє.</p>
+
+    <div class="portals">
+      <a href="players.html" class="portal">
+        <span class="portal-icon">🎾</span>
+        <div class="portal-title">Гравцям</div>
+        <p class="portal-desc">Більше матчів. Рейтинг UTR. Відеоаналіз. Рівний суперник поруч з домом.</p>
+        <div class="portal-link">Читати →</div>
+      </a>
+      <a href="parents.html" class="portal">
+        <span class="portal-icon">👨‍👩‍👧</span>
+        <div class="portal-title">Батькам</div>
+        <p class="portal-desc">Чому дитина грає гірше на турнірі. Що таке LJM. Скільки це коштує.</p>
+        <div class="portal-link">Читати →</div>
+      </a>
+      <a href="coaches.html" class="portal">
+        <span class="portal-icon">📋</span>
+        <div class="portal-title">Тренерам</div>
+        <p class="portal-desc">Аналітика матчів учня. LJM як інструмент, а не конкурент.</p>
+        <div class="portal-link">Читати →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="f-title">LJM</div>
+  <div class="f-sub">Lviv Junior Matchday · Players Only · 2025</div>
+  <a href="https://t.me/+Y55Uze_i1XJkMmYy" class="btn-tg">Приєднатись до Telegram →</a>
+</footer>
+
+</body>
+</html>
